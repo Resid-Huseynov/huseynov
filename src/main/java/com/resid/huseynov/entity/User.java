@@ -30,10 +30,6 @@ public class User implements UserDetails{
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> authorities;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
 
     @Override
     public boolean isAccountNonExpired() {

@@ -49,7 +49,7 @@ public class AuthController {
 
         User userDetails = (User) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(Role-> Role.getAuthority())
+                .map(Role::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(JwtResponse.builder()
