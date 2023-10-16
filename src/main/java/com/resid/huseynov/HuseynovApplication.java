@@ -45,6 +45,13 @@ public class HuseynovApplication implements CommandLineRunner {
                 .isEnabled(true)
                 .authorities(List.of(roleUser))
                 .build());
+
+        userRepository.save(User.builder()
+                .username("memmed")
+                .password(bCryptPasswordEncoder.encode("memmeddi"))
+                .isEnabled(true)
+                .authorities(List.of(roleAdmin))
+                .build());
     }
 
 }
