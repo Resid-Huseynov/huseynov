@@ -10,6 +10,7 @@ import com.resid.huseynov.repository.RoleRepository;
 import com.resid.huseynov.repository.UserRepository;
 import com.resid.huseynov.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:8080"}, maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -64,7 +65,7 @@ public class AuthController {
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
-                    .badRequest()
+                    .status(HttpStatus.CONFLICT)
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
