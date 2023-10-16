@@ -1,15 +1,15 @@
 package com.resid.huseynov.controller;
 
-import com.resid.huseynov.dto.LoginRequest;
 import com.resid.huseynov.dto.JwtResponse;
+import com.resid.huseynov.dto.LoginRequest;
 import com.resid.huseynov.dto.MessageResponse;
 import com.resid.huseynov.dto.SignupRequest;
-import com.resid.huseynov.entity.User;
 import com.resid.huseynov.entity.Role;
+import com.resid.huseynov.entity.User;
 import com.resid.huseynov.repository.RoleRepository;
 import com.resid.huseynov.repository.UserRepository;
 import com.resid.huseynov.security.JwtUtils;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,22 +22,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
 public class AuthController {
 
-
-    private final RoleRepository roleRepository;
-
-    private final UserRepository userRepository;
-
-    private final AuthenticationManager authenticationManager;
-
-    private final PasswordEncoder passwordEncoder;
-
-    private final JwtUtils jwtUtils;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    PasswordEncoder encoder;
+    @Autowired
+    JwtUtils jwtUtils;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
@@ -50,7 +49,7 @@ public class AuthController {
 
         User userDetails = (User) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(Role::getAuthority)
+                .map(Role-> Role.getAuthority())
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(JwtResponse.builder()

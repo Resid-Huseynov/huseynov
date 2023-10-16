@@ -17,10 +17,10 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private String authority;
 
     @Override
     public String getAuthority() {
-        return name;
+        return authority;
     }
 }
