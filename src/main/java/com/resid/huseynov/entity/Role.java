@@ -1,10 +1,7 @@
 package com.resid.huseynov.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -13,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Role implements GrantedAuthority {
 
     @Id
