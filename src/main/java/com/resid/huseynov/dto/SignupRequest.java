@@ -1,8 +1,11 @@
 package com.resid.huseynov.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignupRequest {
 
     private String username;

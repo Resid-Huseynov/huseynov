@@ -1,11 +1,13 @@
 package com.resid.huseynov.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class JwtResponse {
     private String jwt;
