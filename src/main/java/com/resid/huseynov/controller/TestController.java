@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_EDITOR') or hasRole('ROLE_ADMIN')")
     public User allAccess(@AuthenticationPrincipal User user) {
 
         return user;
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public User userAccess(@AuthenticationPrincipal User user) {
+    @PreAuthorize("hasRole('ROLE_EDITOR')")
+    public User editorAcces(@AuthenticationPrincipal User user) {
 
         return user;
     }

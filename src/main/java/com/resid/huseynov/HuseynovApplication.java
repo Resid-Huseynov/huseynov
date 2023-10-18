@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class HuseynovApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Role roleAdmin = roleRepository.save(Role.builder().authority("ROLE_ADMIN").build());
-        Role roleUser = roleRepository.save(Role.builder().authority("ROLE_USER").build());
+        Role roleEditor = roleRepository.save(Role.builder().authority("ROLE_EDITOR").build());
 
         userRepository.save(User.builder()
                 .username("resid")
@@ -40,18 +39,10 @@ public class HuseynovApplication implements CommandLineRunner {
                 .build());
 
         userRepository.save(User.builder()
-                .username("elsad")
-                .password(bCryptPasswordEncoder.encode("elsaddi"))
-                .isEnabled(true)
-                .authorities(List.of(roleUser))
-                .build());
-
-        userRepository.save(User.builder()
                 .username("memmed")
                 .password(bCryptPasswordEncoder.encode("memmeddi"))
                 .isEnabled(true)
-                .authorities(List.of(roleAdmin))
+                .authorities(List.of(roleEditor))
                 .build());
     }
-
 }

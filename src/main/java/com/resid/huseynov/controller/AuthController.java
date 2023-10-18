@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:8080"}, maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:5173", "http://10.14.33.192:5173", "http://localhost:8081"}, maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -66,17 +66,17 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse("Error: Bu ad artıq mövcuddur!"));
         }
 
         userRepository.save(User.builder()
                 .username(signUpRequest.getUsername())
                 .password(encoder.encode(signUpRequest.getPassword()))
                 .isEnabled(true)
-                .authorities(List.of(Objects.requireNonNull(roleRepository.findByAuthority("ROLE_USER").orElse(null))))
+                .authorities(List.of(Objects.requireNonNull(roleRepository.findByAuthority("ROLE_EDITOR").orElse(null))))
                 .build());
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse("İstifadəçi uğurla qeydiyyatdan keçmişdir!"));
     }
 
 }
